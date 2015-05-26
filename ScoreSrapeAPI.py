@@ -5,12 +5,23 @@ import urllib2
 import json
 import os
 import xml.etree.ElementTree as ET
- 
+
+
+
+##Needs for testing Baseball season
+##4 weeks of season schedule starting 1 week from today 4/29/15
+
+
+
+
+
+
+
 # e.g. http://scores.nbcsports.msnbc.com/ticker/data/gamesMSNBC.js.asp?jsonp=true&sport=MLB&period=20120929
-url = 'http://scores.nbcsports.msnbc.com/ticker/data/gamesMSNBC.js.asp?jsonp=true&sport=%s&period=%d'
  
 def today(league):
-  yyyymmdd = int(datetime.datetime.now(pytz.timezone('US/Pacific')).strftime("%Y%m%d"))
+  url = 'http://scores.nbcsports.msnbc.com/ticker/data/gamesMSNBC.js.asp?jsonp=true&sport=%s&period=%d'
+  yyyymmdd = int(datetime.datetime.now(pytz.timezone('US/Mountain')).strftime("%Y%m%d"))
   games = []
   
   try:
@@ -71,8 +82,8 @@ def today(league):
         gameTime.text = gamestate_tree.get('status')
         score.append(game)
       gameXML = ET.tostring(score)
-      print gameXML
-      print count
+##      print gameXML
+##      print count
 
 
 
@@ -90,7 +101,7 @@ def today(league):
 ##        'clock-section': gamestate_tree.get('display_status2')
 ##      })
 ##    
-    with open('scoreFile.xml','w') as scoreData:
+    with open('scoringUpdateFile.xml','w') as scoreData:
       scoreData.write(str(gameXML))
   except Exception, e:
     print e
